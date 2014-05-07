@@ -1,10 +1,9 @@
 <?php
 
-static $curlHandler = null;
+require_once('config.php');
 
 function apiQuery($method = "GET", $path, array $req = array()) {
-	$apiKey = '__PUBLIC__KEY__';
-	$privateKey = '__PRIVATE__KEY__';
+	
 	
 	$method = strtoupper($method);
 
@@ -18,6 +17,8 @@ function apiQuery($method = "GET", $path, array $req = array()) {
 	$sign = hash_hmac('sha256', $queryString, $privateKey);
 	
 	$queryString .= '&hash=' . $sign;
+	
+	static $curlHandler = null;
 		
 	if (is_null($curlHandler)) {
 		$curlHandler = curl_init();
@@ -25,7 +26,7 @@ function apiQuery($method = "GET", $path, array $req = array()) {
 		curl_setopt($curlHandler, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; SWISSCEX API PHP client; ' . php_uname('s') . '; PHP/' . phpversion() . ')');
 	}
 
-	$requestUrl = 'http://api2.swisscex.com/v2/' . $path;
+	$requestUrl = $apiUrl . $path;
 
 	if("GET" === $method) {
 		$requestUrl .= '?' . $queryString;
