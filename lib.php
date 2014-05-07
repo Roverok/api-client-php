@@ -9,12 +9,12 @@ function apiQuery($method = "GET", $path, array $req = array()) {
 
 	$nonce = $milliseconds = round(microtime(true) * 1000);
 	
-	$req['apiKey'] = $apiKey;
+	$req['apiKey'] = API_KEY;
 	$req['nonce'] = $nonce;
 	
 	$queryString = http_build_query($req, '', '&');
 	
-	$sign = hash_hmac('sha256', $queryString, $privateKey);
+	$sign = hash_hmac('sha256', $queryString, PRIVATE_KEY);
 	
 	$queryString .= '&hash=' . $sign;
 	
@@ -26,7 +26,7 @@ function apiQuery($method = "GET", $path, array $req = array()) {
 		curl_setopt($curlHandler, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; SWISSCEX API PHP client; ' . php_uname('s') . '; PHP/' . phpversion() . ')');
 	}
 
-	$requestUrl = $apiUrl . $path;
+	$requestUrl = API_URL . $path;
 
 	if("GET" === $method) {
 		$requestUrl .= '?' . $queryString;

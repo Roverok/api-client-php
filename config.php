@@ -1,5 +1,5 @@
 <?php
 
-$apiKey = '__PUBLIC__KEY__';
-$privateKey = '__PRIVATE__KEY__';
-$apiUrl = 'http://api2.swisscex.com/v2/';
+define('API_KEY', 'PUBLICKEY');
+define('PRIVATE_KEY', 'PRIVATEKEY');
+define('API_URL','http://api.swisscex.com/v2/');
