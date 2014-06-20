@@ -30,6 +30,7 @@ function apiQuery($method = "GET", $path, array $req = array()) {
 
 	if("GET" === $method) {
 		$requestUrl .= '?' . $queryString;
+		curl_setopt($curlHandler, CURLOPT_HTTPGET, true);
 	} else {
 		curl_setopt($curlHandler, CURLOPT_POSTFIELDS, $queryString);
 	}
